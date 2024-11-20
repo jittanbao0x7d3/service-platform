@@ -5,7 +5,9 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 declare const module: any
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, {
+    logger: ["error", "warn", "log"]
+  })
 
   const config = new DocumentBuilder()
     .setTitle("Vườn khoai môn")
