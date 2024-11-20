@@ -17,10 +17,32 @@ services:
       - type: tmpfs
         target: /var/lib/postgresql/data
 
-volumes:
-  cache:
-    driver: local
+  localstack:
+    image: localstack/localstack
+    environment:
+      SERVICES: "s3"
+      HOSTNAME: localstack
+    networks:
+      - api_net
+    ports:
+      - 4566:4566
+    volumes:
+      - "./scripts/s3_bootstrap.sh:/etc/localstack/init/ready.d/s3_bootstrap.sh"
+
+  redis:
+    image: redis:7.4.1-alpine
+    restart: always
+    networks:
+      - api_net
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
 
 networks:
   api_net:
-    name: ci_net
+    driver: bridge
+
+volumes:
+  cache:
+    driver: local
