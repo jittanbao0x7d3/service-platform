@@ -25,6 +25,6 @@ model Users {
 model RefreshTokens {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   identity  String
-  tokenb    String
+  token     String
   createdAt DateTime @default(now())
 }
