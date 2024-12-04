@@ -3,14 +3,16 @@ import {
   Post,
   Body,
   UseGuards,
-  Request,
   HttpCode,
   HttpStatus,
   Get,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from 'src/guard/jwt-auth.guard';
 import { GoogleAuthGuard } from '../guard/google-auth.guard';
+import { stat } from 'fs';
 
 @Controller('auth')
 export class AuthController {
@@ -27,25 +29,31 @@ export class AuthController {
   async login(@Body() body: any) {
     const user = await this.authService.validateUser(body.email, body.password);
     if (!user) {
-      return { message: 'Invalid credentials' };
+      return {
+        status: 'error',
+        message: 'Invalid credentials',
+      };
     }
     return this.authService.login(user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Req() req) {
     return req.user;
   }
 
   @Get('google')
   @UseGuards(GoogleAuthGuard)
-  async googleAuth(@Request() req) {}
+  async googleAuth(@Req() req) {}
 
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  googleAuthRedirect(@Request() req) {
-    // Return the JWT token to the client
-    return req.user;
+  async googleAuthRedirect(@Res() res, @Req() req) {
+    // Redirect to client URL
+    const user = await this.authService.login(req.user);
+    res.redirect(
+      `http://localhost:3000/third-party-token/${user.access_token}`,
+    );
   }
 }

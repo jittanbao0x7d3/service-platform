@@ -13,6 +13,18 @@ export class AuthService {
   ) {}
 
   async register(email: string, name: string, password: string): Promise<any> {
+    // Check if user already exists
+    const userExists = await this.userModel
+      .findOne({ email })
+      .exec()
+      .then((user) => !!user);
+    if (userExists) {
+      return {
+        status: 'error',
+        message: 'User already exists',
+      };
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new this.userModel({
       email,
@@ -20,14 +32,17 @@ export class AuthService {
       password: hashedPassword,
     });
     await user.save();
-    return { message: 'User registered successfully' };
+    return {
+      status: 'success',
+      message: 'User registered successfully',
+    };
   }
 
   async login(user: any) {
     const payload = { email: user.email, sub: user._id };
     return {
       access_token: this.jwtService.sign(payload),
-      user: { username: user.username, email: user.email },
+      user: { name: user.name, email: user.email },
     };
   }
 

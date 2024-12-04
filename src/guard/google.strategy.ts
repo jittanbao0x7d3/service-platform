@@ -21,16 +21,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   ): Promise<any> {
     const { name, emails, photos } = profile;
     const user = {
+      _id: profile.id,
       email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
+      name: name.firstName + ' ' + name.lastName,
       picture: photos[0].value,
       accessToken, // => Google Token
     };
-
-    // Save to database if not exists
-
-    // Create JWT Token
 
     done(null, user);
   }
