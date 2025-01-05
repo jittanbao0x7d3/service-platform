@@ -5,6 +5,7 @@ import { AuthModule } from "./auth/auth.module"
 import { MongooseModule } from "@nestjs/mongoose"
 import { ConfigModule } from "@nestjs/config"
 import { MoviesModule } from "./movies/movies.module"
+import { MovieGenreModule } from './movie_genre/movie_genre.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { MoviesModule } from "./movies/movies.module"
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    MoviesModule
+    MoviesModule,
+    MovieGenreModule
   ],
   controllers: [AppController],
   providers: [AppService]
