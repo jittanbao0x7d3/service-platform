@@ -7,6 +7,7 @@ import { ConfigModule } from "@nestjs/config"
 import { MoviesModule } from "./movies/movies.module"
 import { MovieGenreModule } from "./movie_genre/movie_genre.module"
 import { MoviesNowPlayingModule } from "./movie_now_playing/movie_now_playing.module"
+import { MoviesPopularModule } from "./movie_popular/movie_popular.module"
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { MoviesNowPlayingModule } from "./movie_now_playing/movie_now_playing.mo
     }),
     MoviesModule,
     MovieGenreModule,
-    MoviesNowPlayingModule
+    MoviesNowPlayingModule,
+    MoviesPopularModule
   ],
   controllers: [AppController],
   providers: [AppService]
