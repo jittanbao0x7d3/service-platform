@@ -13,6 +13,7 @@ import { MoviesTrendingDayModule } from "./movie_trending_day/movie_trending_day
 import { MoviesTrendingWeekModule } from "./movie_trending_week/movie_trending_week.module"
 import { MoviesUpcomingModule } from "./movie_upcoming/movie_upcoming.module"
 import { PeopleModule } from "./people/people.module"
+import { PeoplePopularModule } from "./people_popular/people_popular.module"
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { PeopleModule } from "./people/people.module"
     MoviesTrendingDayModule,
     MoviesTrendingWeekModule,
     MoviesUpcomingModule,
-    PeopleModule
+    PeopleModule,
+    PeoplePopularModule
   ],
   controllers: [AppController],
   providers: [AppService]
