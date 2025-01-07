@@ -10,6 +10,7 @@ import { MoviesNowPlayingModule } from "./movie_now_playing/movie_now_playing.mo
 import { MoviesPopularModule } from "./movie_popular/movie_popular.module"
 import { MoviesTopRatedModule } from "./movie_top_rated/movie_top_rated.module"
 import { MoviesTrendingDayModule } from "./movie_trending_day/movie_trending_day.module"
+import { MoviesTrendingWeekModule } from "./movie_trending_week/movie_trending_week.module"
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { MoviesTrendingDayModule } from "./movie_trending_day/movie_trending_day
     MoviesNowPlayingModule,
     MoviesPopularModule,
     MoviesTopRatedModule,
-    MoviesTrendingDayModule
+    MoviesTrendingDayModule,
+    MoviesTrendingWeekModule
   ],
   controllers: [AppController],
   providers: [AppService]
