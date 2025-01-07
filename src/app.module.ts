@@ -12,6 +12,7 @@ import { MoviesTopRatedModule } from "./movie_top_rated/movie_top_rated.module"
 import { MoviesTrendingDayModule } from "./movie_trending_day/movie_trending_day.module"
 import { MoviesTrendingWeekModule } from "./movie_trending_week/movie_trending_week.module"
 import { MoviesUpcomingModule } from "./movie_upcoming/movie_upcoming.module"
+import { PeopleModule } from "./people/people.module"
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { MoviesUpcomingModule } from "./movie_upcoming/movie_upcoming.module"
     MoviesTopRatedModule,
     MoviesTrendingDayModule,
     MoviesTrendingWeekModule,
-    MoviesUpcomingModule
+    MoviesUpcomingModule,
+    PeopleModule
   ],
   controllers: [AppController],
   providers: [AppService]
