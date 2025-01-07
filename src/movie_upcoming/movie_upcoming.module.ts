@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
 import { MongooseModule } from "@nestjs/mongoose"
-import { MoviesUpcomingService } from "./movies_upcoming.service"
-import { MoviesUpcomingController } from "./movies_upcoming.controller"
+import { MoviesUpcomingService } from "./movie_upcoming.service"
+import { MoviesUpcomingController } from "./movie_upcoming.controller"
 import {
   MoviesUpcoming,
   MoviesUpcomingSchema

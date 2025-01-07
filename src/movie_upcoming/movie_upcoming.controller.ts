@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Query } from "@nestjs/common"
-import { MoviesUpcomingService } from "./movies_upcoming.service"
+import { MoviesUpcomingService } from "./movie_upcoming.service"
 import { MoviesUpcoming } from "../models/movie_upcoming.schema"
 
-@Controller("movies-upcoming")
+@Controller("movie-upcoming")
 export class MoviesUpcomingController {
   constructor(private readonly moviesUpcomingService: MoviesUpcomingService) {}
 
