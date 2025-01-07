@@ -8,6 +8,7 @@ import { MoviesModule } from "./movies/movies.module"
 import { MovieGenreModule } from "./movie_genre/movie_genre.module"
 import { MoviesNowPlayingModule } from "./movie_now_playing/movie_now_playing.module"
 import { MoviesPopularModule } from "./movie_popular/movie_popular.module"
+import { MoviesTopRatedModule } from "./movie_top_rated/movie_top_rated.module"
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { MoviesPopularModule } from "./movie_popular/movie_popular.module"
     MoviesModule,
     MovieGenreModule,
     MoviesNowPlayingModule,
-    MoviesPopularModule
+    MoviesPopularModule,
+    MoviesTopRatedModule
   ],
   controllers: [AppController],
   providers: [AppService]
