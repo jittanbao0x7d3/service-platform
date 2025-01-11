@@ -10,6 +10,7 @@ import { GoogleStrategy } from "../guard/google.strategy"
 import { GoogleAuthGuard } from "../guard/google-auth.guard"
 import passport from "passport"
 import dotenv from "dotenv"
+import { MailService } from "./mail.service"
 dotenv.config()
 
 @Module({
@@ -22,7 +23,13 @@ dotenv.config()
     }),
     PassportModule.register({ defaultStrategy: "google", session: true })
   ],
-  providers: [AuthService, JwtStrategy, GoogleStrategy, GoogleAuthGuard],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    GoogleStrategy,
+    GoogleAuthGuard,
+    MailService
+  ],
   controllers: [AuthController]
 })
 export class AuthModule {
