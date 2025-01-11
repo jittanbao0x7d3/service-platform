@@ -5,6 +5,7 @@ import { User, UserDocument } from "src/models/user.schema"
 import bcrypt from "bcryptjs"
 import { JwtService } from "@nestjs/jwt"
 import { MailService } from "./mail.service"
+import { randomBytes } from "crypto"
 
 @Injectable()
 export class AuthService {
@@ -99,6 +100,21 @@ export class AuthService {
   }
 
   async login(user: any) {
+    // Login with Google
+    const existedUser = await this.userModel
+      .findOne({ email: user.email })
+      .exec()
+    if (!existedUser && user.accessToken) {
+      const newUser = new this.userModel({
+        firstName: user.name.givenName,
+        lastName: user.name.familyName,
+        email: user.email,
+        password: await bcrypt.hash(randomBytes(16).toString("hex"), 10),
+        isActive: true
+      })
+      await newUser.save()
+    }
+
     const payload = { email: user.email, sub: user._id }
     return {
       access_token: this.jwtService.sign(payload),
