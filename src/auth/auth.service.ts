@@ -104,6 +104,7 @@ export class AuthService {
     const existedUser = await this.userModel
       .findOne({ email: user.email })
       .exec()
+
     if (!existedUser && user.accessToken) {
       const newUser = new this.userModel({
         firstName: user.name.givenName,
@@ -113,12 +114,13 @@ export class AuthService {
         isActive: true
       })
       await newUser.save()
+      user = newUser
     }
 
     const payload = { email: user.email, sub: user._id }
     return {
       access_token: this.jwtService.sign(payload),
-      user: { name: user.name, email: user.email }
+      user: user
     }
   }
 
