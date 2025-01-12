@@ -120,7 +120,7 @@ export class AuthService {
     const payload = { email: user.email, sub: user._id }
     return {
       access_token: this.jwtService.sign(payload),
-      user: user
+      user: !existedUser ? user : existedUser
     }
   }
 
@@ -131,5 +131,20 @@ export class AuthService {
       return result
     }
     return null
+  }
+
+  async getProfile(userId: string): Promise<any> {
+    const user = await this.userModel.findOne({ _id: userId }).exec()
+    if (!user) {
+      return null
+    }
+    const result = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      isActive: user.isActive
+    }
+    console.log(result)
+    return result
   }
 }

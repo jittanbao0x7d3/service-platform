@@ -13,6 +13,7 @@ import {
 import { AuthService } from "./auth.service"
 import { JwtAuthGuard } from "src/guard/jwt-auth.guard"
 import { GoogleAuthGuard } from "../guard/google-auth.guard"
+import { use } from "passport"
 
 @Controller("auth")
 export class AuthController {
@@ -60,10 +61,9 @@ export class AuthController {
     await this.authService.resetPassword(token, newPassword)
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get("profile")
-  getProfile(@Req() req) {
-    return req.user
+  @Get("profile/:userId")
+  async getProfile(@Param("userId") userId: string): Promise<void> {
+    return this.authService.getProfile(userId)
   }
 
   @Get("google")
