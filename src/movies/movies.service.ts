@@ -17,4 +17,13 @@ export class MoviesService {
   async findOne(id: string): Promise<Movie> {
     return this.movieModel.findById(id).exec()
   }
+
+  async search(query: string, page: number, limit: number): Promise<Movie[]> {
+    const skip = (page - 1) * limit
+    return this.movieModel
+      .find({ original_title: { $regex: query, $options: "i" } }) // Case-insensitive search
+      .skip(skip)
+      .limit(limit)
+      .exec()
+  }
 }
