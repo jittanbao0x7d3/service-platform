@@ -49,16 +49,26 @@ export class AuthController {
   }
 
   @Post("forgot-password")
-  async forgotPassword(@Body("email") email: string): Promise<void> {
+  @HttpCode(HttpStatus.OK)
+  async forgotPassword(@Body("email") email: string): Promise<{ message: string }> {
     await this.authService.forgotPassword(email)
+
+    return {
+      message: 'A password reset link has been sent to your email.',
+    };
   }
 
   @Post("reset-password/:token")
+  @HttpCode(HttpStatus.OK)
   async resetPassword(
     @Param("token") token: string,
     @Body("newPassword") newPassword: string
-  ): Promise<void> {
+  ): Promise<{ message: string }> {
     await this.authService.resetPassword(token, newPassword)
+
+    return {
+      message: 'Your password has been successfully reset. You can now log in.',
+    };
   }
 
   @Get("profile/:userId")
