@@ -45,7 +45,9 @@ export class AuthController {
 
   @Post("activate/:token")
   @HttpCode(HttpStatus.OK)
-  async activateAccount(@Param("token") token: string): Promise<{ message: string }> {
+  async activateAccount(
+    @Param("token") token: string
+  ): Promise<{ message: string }> {
     await this.authService.activateAccount(token)
 
     return {
