@@ -6,8 +6,8 @@ export class Favorite extends Document {
   @Prop({ required: true })
   userId: string
 
-  @Prop({ required: true })
-  movieId: string
+  @Prop({ required: true, type: [String] })
+  movieIds: string[]
 }
 
 export const FavoriteSchema = SchemaFactory.createForClass(Favorite)
