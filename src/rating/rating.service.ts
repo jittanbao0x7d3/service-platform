@@ -10,13 +10,19 @@ export class RatingsService {
   async addRating(
     userId: string,
     movieId: string,
+    movieTitle: string,
     rating: number
   ): Promise<Rating> {
     const existingRating = await this.ratingModel.findOne({ userId, movieId })
     if (existingRating) {
-      return this.updateRating(userId, movieId, rating)
+      return this.updateRating(userId, movieId, movieTitle, rating)
     }
-    const newRating = new this.ratingModel({ userId, movieId, rating })
+    const newRating = new this.ratingModel({
+      userId,
+      movieId,
+      movieTitle,
+      rating
+    })
     return newRating.save()
   }
 
@@ -27,10 +33,15 @@ export class RatingsService {
   async updateRating(
     userId: string,
     movieId: string,
+    movieTitle: string,
     rating: number
   ): Promise<Rating> {
     return this.ratingModel
-      .findOneAndUpdate({ userId, movieId }, { rating }, { new: true })
+      .findOneAndUpdate(
+        { userId, movieId, movieTitle },
+        { rating },
+        { new: true }
+      )
       .exec()
   }
 

@@ -17,9 +17,20 @@ export class RatingsController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async addRating(
-    @Body() body: { userId: string; movieId: string; rating: number }
+    @Body()
+    body: {
+      userId: string
+      movieId: string
+      movieTitle: string
+      rating: number
+    }
   ) {
-    return this.ratingsService.addRating(body.userId, body.movieId, body.rating)
+    return this.ratingsService.addRating(
+      body.userId,
+      body.movieId,
+      body.movieTitle,
+      body.rating
+    )
   }
 
   @Get(":movieId")

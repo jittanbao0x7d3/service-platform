@@ -10,6 +10,9 @@ export class Rating extends Document {
   movieId: string
 
   @Prop({ required: true })
+  movieTitle: string
+
+  @Prop({ required: true })
   rating: number
 }
 
