@@ -11,6 +11,9 @@ export class Movie {
   @Prop()
   adult: boolean
 
+  @Prop([Number])
+  genre_ids: number[]
+
   @Prop()
   backdrop_path: string
 

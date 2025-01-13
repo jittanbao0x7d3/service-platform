@@ -22,6 +22,7 @@ import {
   MoviesPopular,
   MoviesPopularDocument
 } from "../models/movie_popular.schema"
+import { MovieGenreDocument } from "../models/movie_genre.schema"
 
 type Path = "today" | "week" | "popular" | "topRated" | "upcoming"
 
@@ -88,7 +89,12 @@ export class MoviesService {
   }
 
   async findOne(id: string): Promise<Movie> {
-    return this.movieModel.findById(id).exec()
+    const movie = await this.movieModel.findById(id).exec()
+    movie.genre_ids = movie.genres.map((genre) => genre.id)
+
+    console.log(movie.genre_ids)
+
+    return movie
   }
 
   async search(query: string, page: number, limit: number): Promise<Movie[]> {
