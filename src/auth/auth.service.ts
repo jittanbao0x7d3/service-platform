@@ -133,12 +133,13 @@ export class AuthService {
     return null
   }
 
-  async getProfile(userId: string): Promise<any> {
-    const user = await this.userModel.findOne({ _id: userId }).exec()
+  async getProfile(email: string): Promise<any> {
+    const user = await this.userModel.findOne({ email: email }).exec()
     if (!user) {
       return null
     }
     const result = {
+      _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

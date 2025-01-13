@@ -7,11 +7,13 @@ import {
   Param,
   Post,
   Req,
+  Request,
   Res,
   UseGuards
 } from "@nestjs/common"
 import { AuthService } from "./auth.service"
 import { GoogleAuthGuard } from "../guard/google-auth.guard"
+import { JwtAuthGuard } from "src/guard/jwt-auth.guard"
 
 @Controller("auth")
 export class AuthController {
@@ -78,9 +80,11 @@ export class AuthController {
     }
   }
 
-  @Get("profile/:userId")
-  async getProfile(@Param("userId") userId: string): Promise<void> {
-    return this.authService.getProfile(userId)
+  @UseGuards(JwtAuthGuard)
+  @Get("profile")
+  async getProfile(@Request() req) {
+    const email = req.user.email
+    return this.authService.getProfile(email)
   }
 
   @Get("google")
