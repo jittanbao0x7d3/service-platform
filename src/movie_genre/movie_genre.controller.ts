@@ -10,4 +10,9 @@ export class MovieGenreController {
   async findAll(): Promise<MovieGenre[]> {
     return this.movieGenreService.findAll()
   }
+
+  @Get(":ids")
+  async byId(ids: string): Promise<MovieGenre[]> {
+    return this.movieGenreService.findMany(ids)
+  }
 }

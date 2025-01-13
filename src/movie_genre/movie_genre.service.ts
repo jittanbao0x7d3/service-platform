@@ -13,4 +13,13 @@ export class MovieGenreService {
   async findAll(): Promise<MovieGenre[]> {
     return this.movieGenreModel.find().exec()
   }
+
+  async findMany(ids: string): Promise<MovieGenre[]> {
+    const idArray = ids.split("_").map((id) => parseInt(id))
+    return this.movieGenreModel
+      .find({
+        id: { $in: idArray }
+      })
+      .exec()
+  }
 }
