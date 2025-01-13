@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from "@nestjs/common"
+import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common"
 import { MoviesService } from "./movies.service"
 import { Movie } from "../models/movie.schema"
 
@@ -26,5 +26,10 @@ export class MoviesController {
   @Get(":id")
   async findOne(@Param("id") id: string): Promise<Movie> {
     return this.moviesService.findOne(id)
+  }
+
+  @Post("find-many")
+  async findMany(@Body() body: { path: string[] }) {
+    return this.moviesService.findMany(body.path)
   }
 }
