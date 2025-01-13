@@ -28,14 +28,8 @@ export class RatingsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Put()
-  async updateRating(
-    @Body() body: { userId: string; movieId: string; rating: number }
-  ) {
-    return this.ratingsService.updateRating(
-      body.userId,
-      body.movieId,
-      body.rating
-    )
+  @Get("/user/:userId")
+  async getUserRatings(@Param("userId") userId: string) {
+    return this.ratingsService.getUserRatings(userId)
   }
 }
