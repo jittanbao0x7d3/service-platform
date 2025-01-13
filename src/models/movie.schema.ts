@@ -132,6 +132,47 @@ export class Movie {
       job: string
     }[]
   }
+
+  @Prop({
+    type: [
+      {
+        iso_639_1: String,
+        iso_3166_1: String,
+        name: String,
+        key: String,
+        site: String,
+        size: Number,
+        type: String,
+        official: Boolean,
+        published_at: Date,
+        id: String
+      }
+    ]
+  })
+  trailers: {
+    iso_639_1: string
+    iso_3166_1: string
+    name: string
+    key: string
+    site: string
+    size: number
+    type: string
+    official: boolean
+    published_at: Date
+    id: string
+  }[]
+
+  @Prop([String])
+  similar_movies: string[]
+
+  @Prop({ type: [{ id: Number, name: String }] })
+  keywords: {
+    id: number
+    name: string
+  }[]
+
+  @Prop([String])
+  reviews: string[]
 }
 
 export const MovieSchema = SchemaFactory.createForClass(Movie)
