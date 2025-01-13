@@ -1,19 +1,17 @@
 import {
-  Controller,
-  Post,
   Body,
-  UseGuards,
+  Controller,
+  Get,
   HttpCode,
   HttpStatus,
-  Get,
+  Param,
+  Post,
   Req,
   Res,
-  Param
+  UseGuards
 } from "@nestjs/common"
 import { AuthService } from "./auth.service"
-import { JwtAuthGuard } from "src/guard/jwt-auth.guard"
 import { GoogleAuthGuard } from "../guard/google-auth.guard"
-import { use } from "passport"
 
 @Controller("auth")
 export class AuthController {
@@ -94,6 +92,8 @@ export class AuthController {
   async googleAuthRedirect(@Res() res, @Req() req) {
     // Redirect to client URL
     const user = await this.authService.login(req.user)
-    res.redirect(`http://localhost:3000/third-party-token/${user.access_token}`)
+    res.redirect(
+      `${process.env.FRONTEND_URL}/third-party-token/${user.access_token}`
+    )
   }
 }
