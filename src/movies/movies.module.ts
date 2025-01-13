@@ -23,6 +23,9 @@ import {
   MoviesUpcoming,
   MoviesUpcomingSchema
 } from "../models/movie_upcoming.schema"
+import { HttpModule } from "@nestjs/axios"
+import { People, PeopleSchema } from "../models/people.schema"
+import { PeopleService } from "../people/people.service"
 
 @Module({
   imports: [
@@ -32,10 +35,15 @@ import {
       { name: MoviesTrendingDay.name, schema: MoviesTrendingDaySchema },
       { name: MoviesTrendingWeek.name, schema: MovieTrendingWeekSchema },
       { name: MoviesTopRated.name, schema: MoviesTopRatedSchema },
-      { name: MoviesUpcoming.name, schema: MoviesUpcomingSchema }
-    ])
+      { name: MoviesUpcoming.name, schema: MoviesUpcomingSchema },
+      { name: People.name, schema: PeopleSchema }
+    ]),
+    HttpModule.register({
+      timeout: 10000,
+      maxRedirects: 5
+    })
   ],
   controllers: [MoviesController],
-  providers: [MoviesService]
+  providers: [MoviesService, PeopleService]
 })
 export class MoviesModule {}

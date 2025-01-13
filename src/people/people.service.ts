@@ -17,4 +17,29 @@ export class PeopleService {
   async findOne(id: string): Promise<People> {
     return this.peopleModel.findOne({id: id}).exec()
   }
+
+  async findMany(
+    ids: string[],
+    page: number,
+    limit: number
+  ): Promise<People[]> {
+    const skip = (page - 1) * limit
+    return this.peopleModel
+      .find()
+      .where("_id")
+      .in(ids)
+      .skip(skip)
+      .limit(limit)
+      .exec()
+  }
+
+  async search(query: string, page: number, limit: number): Promise<People[]> {
+    const skip = (page - 1) * limit
+
+    return this.peopleModel
+      .find({ name: { $regex: query, $options: "i" } }) // Case-insensitive search
+      .skip(skip)
+      .limit(limit)
+      .exec()
+  }
 }

@@ -72,7 +72,7 @@ export class MoviesService {
     this.mapper["topRated"] = this.topRatedDocumentModel
   }
 
-  async findMany(inputPath: string[]): Promise<Movie[]> {
+  async findManyWithCustomInput(inputPath: string[]): Promise<Movie[]> {
     const promises = inputPath
       .map((data) => data.split("_"))
       .map(([dataPoint, id]) => {
@@ -81,6 +81,18 @@ export class MoviesService {
       })
 
     return Promise.all(promises)
+  }
+
+  async findMany(ids: string[], page: number, limit: number): Promise<Movie[]> {
+    const skip = (page - 1) * limit
+
+    return this.movieModel
+      .find()
+      .where("_id")
+      .in(ids)
+      .skip(skip)
+      .limit(limit)
+      .exec()
   }
 
   async findAll(page: number, limit: number): Promise<Movie[]> {
@@ -99,6 +111,7 @@ export class MoviesService {
 
   async search(query: string, page: number, limit: number): Promise<Movie[]> {
     const skip = (page - 1) * limit
+
     return this.movieModel
       .find({ original_title: { $regex: query, $options: "i" } }) // Case-insensitive search
       .skip(skip)
