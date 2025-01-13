@@ -7,6 +7,9 @@ export class Review extends Document {
   userId: string
 
   @Prop({ required: true })
+  name: string
+
+  @Prop({ required: true })
   movieId: string
 
   @Prop({ required: true })
