@@ -17,9 +17,20 @@ export class ReviewsController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async addReview(
-    @Body() body: { userId: string; movieId: string; review: string }
+    @Body()
+    body: {
+      userId: string
+      name: string
+      movieId: string
+      review: string
+    }
   ) {
-    return this.reviewsService.addReview(body.userId, body.movieId, body.review)
+    return this.reviewsService.addReview(
+      body.userId,
+      body.name,
+      body.movieId,
+      body.review
+    )
   }
 
   @Get(":movieId")

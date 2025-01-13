@@ -9,10 +9,11 @@ export class ReviewsService {
 
   async addReview(
     userId: string,
+    name: string,
     movieId: string,
     review: string
   ): Promise<Review> {
-    const newReview = new this.reviewModel({ userId, movieId, review })
+    const newReview = new this.reviewModel({ userId, name, movieId, review })
     return newReview.save()
   }
 
