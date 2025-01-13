@@ -16,6 +16,9 @@ import { PeopleModule } from "./people/people.module"
 import { PeoplePopularModule } from "./people_popular/people_popular.module"
 import { PeopleTrendingDayModule } from "./people_trending_day/people_trending_day.module"
 import { PeopleTrendingWeekModule } from "./people_trending_week/people_trending_week.module"
+import { FavoriteModule } from "./favorite/favorite.module"
+import { RatingsModule } from "./rating/rating.module"
+import { ReviewsModule } from "./review/review.module"
 
 @Module({
   imports: [
@@ -35,7 +38,10 @@ import { PeopleTrendingWeekModule } from "./people_trending_week/people_trending
     PeopleModule,
     PeoplePopularModule,
     PeopleTrendingDayModule,
-    PeopleTrendingWeekModule
+    PeopleTrendingWeekModule,
+    FavoriteModule,
+    RatingsModule,
+    ReviewsModule
   ],
   controllers: [AppController],
   providers: [AppService]
