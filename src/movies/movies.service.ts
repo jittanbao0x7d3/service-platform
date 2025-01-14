@@ -22,16 +22,16 @@ import {
   MoviesPopular,
   MoviesPopularDocument
 } from "../models/movie_popular.schema"
-import { MovieGenreDocument } from "../models/movie_genre.schema"
 
-type Path = "today" | "week" | "popular" | "topRated" | "upcoming"
+type Path = "today" | "week" | "popular" | "topRated" | "upcoming" | "default"
 
 const convertBack = {
   "movies-trending-day": "today",
   "movie-trending-week": "week",
   "movies-popular": "popular",
   "movies-top-rated": "topRated",
-  "movie-upcoming": "upcoming"
+  "movie-upcoming": "upcoming",
+  default: "default"
 }
 
 type Mapper = Record<Path, Model<any>>
@@ -43,7 +43,8 @@ export class MoviesService {
     week: undefined,
     popular: undefined,
     topRated: undefined,
-    upcoming: undefined
+    upcoming: undefined,
+    default: undefined
   }
 
   constructor(
@@ -70,6 +71,7 @@ export class MoviesService {
     this.mapper["upcoming"] = this.upcomingModel
     this.mapper["popular"] = this.popularModel
     this.mapper["topRated"] = this.topRatedDocumentModel
+    this.mapper["default"] = this.movieModel
   }
 
   async findManyWithCustomInput(inputPath: string[]): Promise<Movie[]> {

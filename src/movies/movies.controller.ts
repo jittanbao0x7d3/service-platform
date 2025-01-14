@@ -43,8 +43,9 @@ export class MoviesController {
     navigateTo: Route
     people?: People[]
   }> {
-    const navigateTo = await this.navigateTo(query)
+    // const navigateTo = await this.navigateTo(query)
     const collection = await this.getCollection(query)
+    const navigateTo = "HOME_PAGE"
 
     if (type === "llm") {
       const moviesOrPeoples = await this.findWithLlm(query, collection, limit)
