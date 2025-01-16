@@ -64,15 +64,28 @@ export class MoviesController {
       }
     }
 
+    console.log({
+      collection,
+      navigateTo,
+      movies:
+        collection === "movies"
+          ? await this.moviesService.search(query, page, limit)
+          : [],
+      people:
+        collection === "people"
+          ? await this.peopleService.search(query, page, limit)
+          : []
+    })
+
     return {
       collection,
       navigateTo,
       movies:
-        collection === "people"
+        collection === "movies"
           ? await this.moviesService.search(query, page, limit)
           : [],
       people:
-        collection === "movies"
+        collection === "people"
           ? await this.peopleService.search(query, page, limit)
           : []
     }

@@ -39,7 +39,7 @@ import { PeopleService } from "../people/people.service"
       { name: People.name, schema: PeopleSchema }
     ]),
     HttpModule.register({
-      timeout: 10000,
+      timeout: 100000,
       maxRedirects: 5
     })
   ],
